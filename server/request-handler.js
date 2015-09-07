@@ -33,6 +33,9 @@ var requestHandler = function(request, response) {
   console.log("Serving request type " + request.method + " for url " + request.url);
 
   var requestedUrl = url.parse(request.url);
+  var urlRe = /(?!.+\/)\/(.+)/;
+  var tail = urlRe.exec(requestedUrl.pathname)[1];
+
 
   // Create and object that contains all the HTTP Verbs were use
   var router = {
@@ -76,13 +79,30 @@ var requestHandler = function(request, response) {
     res.end();
   };
 
+  var getRoute = function(){
+    return router[request.method][requestedUrl.pathname];
+  }
+  // Variable routes
+  if (!getRoute()) {
+    router.GET['/classes/' + tail] = function(req, res) {
+      res.end( JSON.stringify(messages.fetch()) );
+    };
+    router.POST['/classes/' + tail] = function(req, res) {
+      res.writeHead(201, headers);
+      dataParser(req, res, function(){
+        messages.add(req.parsedBody, function(message){
+          res.end( JSON.stringify(message) );
+        });
+      });
+    }
+  };
+
   var handle404 = function(req, res) {
     res.writeHead(404, headers);
     res.end();
   };
 
-  var reqHandler = router[request.method][requestedUrl.pathname];
-  reqHandler ? reqHandler(request, response) : handle404(request, response);
+  getRoute() ? getRoute()(request, response) : handle404(request, response);
   // Make sure to always call response.end() - Node may not send
   // anything back to the client until you do. The string you pass to
   // response.end() will be the body of the response - i.e. what shows
@@ -108,4 +128,4 @@ var defaultCorsHeaders = {
   "access-control-allow-headers": "content-type, accept",
   "access-control-max-age": 10 // Seconds.
 };
-module.exports = requestHandler;
+module.exports.requestHandler = requestHandler;

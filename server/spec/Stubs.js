@@ -21,6 +21,9 @@ module.exports = {
   request: function(url, method, postdata) {
     this.url = url;
     this.method = method;
+    this.headers = {
+      'content-type': 'application/json'
+    };
     this._postData = postdata;
     this.setEncoding = function() { /* noop */ };
 
