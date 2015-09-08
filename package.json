@@ -6,7 +6,8 @@
   "license": "Copyright 2013, Hack Reactor. All rights reserved.",
   "scripts": {
     "test": "mocha server/spec",
-    "start": "node server/basic-server.js"
+    "start": "node server/basic-server.js",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "devDependencies": {
     "mocha": "^1.21.4",
@@ -19,10 +20,7 @@
     "jsonfile": "^2.2.1",
     "moment": "^2.10.6",
     "scalpel": "0.0.4",
-    "simple-unique-id": "0.0.1"
-  },
-  "scripts": {
-      "postinstall": "./node_modules/bower/bin/bower install && mv server/data/configmessages.json server/data/messages.json",
-      "start": "node server/basic-server.js"
+    "simple-unique-id": "0.0.1",
+    "bower": "1.5.x"
   }
 }
