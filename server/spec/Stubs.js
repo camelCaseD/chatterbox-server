@@ -7,12 +7,16 @@ module.exports = {
     this._headers = null;
     this._data = null;
 
+    this.status = function(code) {
+      this._responseCode = code;
+    };
+
     this.writeHead = function(responseCode, headers) {
       this._responseCode = responseCode;
       this._headers = headers;
     }.bind(this);
 
-    this.end = function(data) {
+    this.send = this.end = function(data) {
       this._ended = true;
       this._data = data;
     }.bind(this);
