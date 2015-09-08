@@ -9,9 +9,12 @@ var requestHandler = function() {
 
   var headers = defaultCorsHeaders;
 
+  //redirect to our index page
   router.get('/', function(req, res){
     res.redirect('/refactor.html');
   });
+
+  
   router.get('/classes/messages', function(req, res) {
     res.status(200);
     res.send( JSON.stringify(messages.fetch()) );
@@ -32,7 +35,7 @@ var requestHandler = function() {
   router.getRooms = getRoomCB;
 
   var postRoomCB = function(req, res) {
-    res.writeHead(201, headers);
+    res.status(201);
     dataParser(req, res, function(){
       messages.add(req.parsedBody, function(message){
         res.end( JSON.stringify(message) );
@@ -41,14 +44,9 @@ var requestHandler = function() {
   };
   router.postRooms = postRoomCB;
 
+  //get and post requests for other rooms but only within /classes/
   router.get('/classes/:room', getRoomCB);
   router.post('/classes/:room', postRoomCB);
-
-
-  var handle404 = function(req, res) {
-    res.writeHead(404, headers);
-    res.end();
-  };
 
   return router
 };
