@@ -6,7 +6,7 @@ var app = express();
 var router = require('./router').requestHandler(express);
 
 
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 // we'll have it listen on the IP address 127.0.0.1, which is a
 
