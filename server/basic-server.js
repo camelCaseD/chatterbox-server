@@ -30,5 +30,5 @@ app.use(enableCORS);
 
 app.use(router);
 
-
+app.use(express.static(__dirname + '/../client'));
 app.listen(port);

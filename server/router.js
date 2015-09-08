@@ -9,7 +9,9 @@ var requestHandler = function() {
 
   var headers = defaultCorsHeaders;
 
-
+  router.get('/', function(req, res){
+    res.redirect('/refactor.html');
+  });
   router.get('/classes/messages', function(req, res) {
     res.status(200);
     res.send( JSON.stringify(messages.fetch()) );
