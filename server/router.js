@@ -7,8 +7,6 @@ var express = require('express')
 var requestHandler = function() {
   var router = express.Router();
 
-  var headers = defaultCorsHeaders;
-
   //redirect to our index page
   router.get('/', function(req, res){
     res.redirect('/refactor.html');
@@ -51,11 +49,4 @@ var requestHandler = function() {
   return router
 };
 
-
-var defaultCorsHeaders = {
-  "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "access-control-allow-headers": "content-type, accept",
-  "access-control-max-age": 10 // Seconds.
-};
 module.exports.requestHandler = requestHandler;
