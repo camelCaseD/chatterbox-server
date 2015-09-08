@@ -16,6 +16,7 @@
   "dependencies": {
     "express": "^4.13.3",
     "jsonfile": "^2.2.1",
+    "moment": "^2.10.6",
     "scalpel": "0.0.4",
     "simple-unique-id": "0.0.1"
   }

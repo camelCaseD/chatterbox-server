@@ -19,7 +19,6 @@ var requestHandler = function() {
   router.post('/classes/messages', function(req, res) {
     res.status(201);
     dataParser(req, res, function(){
-      console.log(req.parsedBody);
       messages.add(req.parsedBody, function(message){
         res.send( JSON.stringify(message) );
       });
