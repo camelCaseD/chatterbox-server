@@ -7,7 +7,7 @@
   "scripts": {
     "test": "mocha server/spec",
     "start": "node server/basic-server.js",
-    "postinstall": "./node_modules/bower/bin/bower install && mv server/data/configmessages.json server/data/messages.json"
+    "postinstall": "./node_modules/bower/bin/bower install && cp server/data/configmessages.json server/data/messages.json"
   },
   "devDependencies": {
     "mocha": "^1.21.4",
