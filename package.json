@@ -22,7 +22,7 @@
     "simple-unique-id": "0.0.1"
   },
   "scripts": {
-      "postinstall": "./node_modules/bower/bin/bower install",
+      "postinstall": "./node_modules/bower/bin/bower install && mv server/data/configmessages.json server/data/messages.json",
       "start": "node server/basic-server.js"
   }
 }
