@@ -20,5 +20,8 @@
     "moment": "^2.10.6",
     "scalpel": "0.0.4",
     "simple-unique-id": "0.0.1"
+  },
+  "scripts": {
+      "postinstall": "./node_modules/bower/bin/bower install"
   }
 }
