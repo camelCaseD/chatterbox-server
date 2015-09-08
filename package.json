@@ -18,6 +18,10 @@
     "jsonfile": "^2.2.1",
     "moment": "^2.10.6",
     "scalpel": "0.0.4",
-    "simple-unique-id": "0.0.1"
+    "simple-unique-id": "0.0.1",
+    "bower": "1.5.x"
+  },
+  "scripts": {
+      "postinstall": "./node_modules/bower/bin/bower install"
   }
 }

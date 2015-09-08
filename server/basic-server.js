@@ -3,14 +3,10 @@
 var express = require('express');
 var app = express();
 // Import our request-handler
-var router = require('./router').requestHandler(express);
+var router = require('./router').requestHandler();
 
-
-var port = 3000;
-
-// we'll have it listen on the IP address 127.0.0.1, which is a
-
-var ip = "127.0.0.1";
+// this is for the deployed Heroku version. Locally we use 3000
+var port = process.env.PORT || 3000;
 
 var enableCORS = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

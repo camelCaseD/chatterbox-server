@@ -1,7 +1,8 @@
 var router = require('../router');
 var expect = require('../../node_modules/chai/chai').expect;
 var stubs = require('./Stubs');
-
+var jsonfile = require('jsonfile');
+var data;
 // Conditional async testing, akin to Jasmine's waitsFor()
 // Will wait for test to be truthy before executing callback
 function waitForThen(test, cb) {
@@ -11,6 +12,13 @@ function waitForThen(test, cb) {
 }
 
 describe('Node Server Request Listener Function', function() {
+  before(function(){
+    data = jsonfile.readFileSync(__dirname + '/../data/messages.json');
+  });
+  beforeEach(function(){
+    jsonfile.writeFileSync(__dirname + '/../data/messages.json', {results: []});
+  });
+
   it('Should answer GET requests for /classes/room with a 200 status code', function() {
     // This is a fake server request. Normally, the server would provide this,
     // but we want to test our function's behavior totally independent of the server code
@@ -18,7 +26,6 @@ describe('Node Server Request Listener Function', function() {
     var res = new stubs.response();
 
     var reqHandler = router.requestHandler().getRooms(req, res);
-    // console.log(req, res);
 
     expect(res._responseCode).to.equal(200);
     expect(res._ended).to.equal(true);
@@ -76,7 +83,7 @@ describe('Node Server Request Listener Function', function() {
     expect(res._ended).to.equal(true);
   });
 
-it('Should respond with messages that were previously posted', function() {
+  it('Should respond with messages that were previously posted', function() {
     var stubMsg = {
       username: 'Jono',
       message: 'Do my bidding!'
@@ -115,6 +122,10 @@ it('Should respond with messages that were previously posted', function() {
       function() {
         expect(res._responseCode).to.equal(404);
     });
+  });
+
+  after(function(){
+    jsonfile.writeFileSync(__dirname + '/../data/messages.json', data, {spaces:2} );
   });
 
 });

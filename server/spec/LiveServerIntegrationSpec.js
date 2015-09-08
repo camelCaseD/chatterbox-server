@@ -1,7 +1,15 @@
 var request = require('request');
 var expect = require('../../node_modules/chai/chai').expect;
-
+var jsonfile = require('jsonfile')
+var data;
 describe('server', function() {
+  before(function(){
+    data = jsonfile.readFileSync(__dirname + '/../data/messages.json');
+  });
+  beforeEach(function(){
+    jsonfile.writeFileSync(__dirname + '/../data/messages.json', {results: []});
+  });
+
   it('should respond to GET requests for /classes/messages with a 200 status code', function(done) {
     request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
       expect(response.statusCode).to.equal(200);
@@ -73,5 +81,7 @@ describe('server', function() {
     });
   });
 
-
+  after(function(){
+    jsonfile.writeFileSync(__dirname + '/../data/messages.json', data, {spaces:2});
+  });
 });

@@ -6,10 +6,13 @@ var path = __dirname + '/data/messages.json';
 var messages;
 var getMessages = function () {
   jsonfile.readFile(path, function(err, obj){ 
-    messages = obj;
-  });
-  messages.results.sort(function(a,b){
-    return moment(a.createdAt).isAfter(b.createdAt);
+    if (obj){
+      messages = obj;
+
+      messages.results.sort(function(a,b){
+        return moment(a.createdAt).isBefore(b.createdAt);
+      });
+    }
   });
   return messages;
 };
